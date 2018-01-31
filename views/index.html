@@ -1,0 +1,346 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Enterprise Profiler</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    
+    <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">Connected2Fiber
+            <!-- <img src="img/logo-white.png" /> -->
+        </a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <div class="btn-group">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            Login
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <nav class="navbar navbar-toggleable-xl navbar-light bg-faded">
+        <a href="#" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse.in" id="menu-toggle">
+            <i class="fa fa-bars fa-2x"></i>
+        </a>
+        <form class="navbar-search" role="search">
+            <div class="input-group pull-left">
+                <input type="text" class="form-control" placeholder="Search" name="q">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </nav>
+
+    <div id="wrapper" class="toggled">
+        <div class="full-width-tabs" id="sidebar-wrapper">
+            <div class="container filters">
+                Map Options
+                <span class="pull-right">
+                    <a href="#" id="filter-menu-toggle">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </span>
+            </div>
+            <ul class="nav nav-tabs options" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link other" role="tab" data-toggle="tab" href="#tab1">Layer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active analysis" role="tab" data-toggle="tab" href="#tab2">Analysis</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabledTab" data-toggle="tab" href="#tab3" role="tab">Select All</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane fade" id="tab1" role="tabpanel">
+                    <p>Tab 1</p>
+                </div>
+
+                <div class="tab-pane fade show active" id="tab2" role="tabpanel">
+                    <div class="container" id="init">
+                        <div class="link-1">
+                            <a class="first" href="#">
+                                Nearnet Analysis&nbsp;
+                                <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Nearnet Analysis Description"></i>
+                            </a>
+                        </div>
+                        <div class="link-2">
+                            <a class="second" href="#">
+                                2nd Analysis Type
+                                <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Other Analysis Description"></i>
+                            </a>
+                        </div>
+                        <div class="link-3">
+                            <a class="third" href="#">
+                                3rd Analysis Type
+                                <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Other Analysis Description"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="tab3" role="tabpanel">
+                    <p>Tab 3</p>
+                </div>
+
+                <!-- HIDDEN DIVS -->
+                <div class="container tools" id="one" style="display:none;">
+                    <div class="container" id="" style="background-color:#f08a16; font-weight:600;">
+                        <p class="text-left nav-link">
+                            <i class="fa fa-arrow-left"></i>
+                            <input type="button" id="home1" class="go-back btn-as-text" value="Go Back" />
+                            <span class="pull-right nearnet">&nbsp;&nbsp;Nearnet Analysis</span>
+                        </p>
+                    </div>
+                    <div class="container" style="padding-top:15px;">
+                        <form [formGroup]="Myform1" id="analysis">
+                            <div class="parameters">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-3">
+                                            <label class="control-label">Company</label>
+                                        </div>
+                                        <div class="col-sm-9 col-md-9">
+                                            <div class="dropdown">
+                                                <input auto-complete id="companyname" formControlName="companyname" max-num-list=5 placeholder="Company Name" [source]="companylists"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-3">
+                                            <label class="control-label">Region</label>
+                                        </div>
+                                        <div class="col-sm-9 col-md-9">
+                                            <select (change)="basechange()" id="base" formControlName="Region" class="btn btn-secondary dropdown-toggle">
+                                                <option class="dropdown-item" href="#" value="State" ng-selected="selected">State</option>
+                                                <option class="dropdown-item" href="#" value="County">County</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-3">
+                                        </div>
+                                        <div class="col-sm-9 col-md-9">
+                                            <div class="dropdown">
+                                                <input auto-complete formControlName="boundaryname" max-num-list=5 placeholder="state or county name" [source]="countynamelists"
+                                                    value='ALL' />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-3">
+                                            <label class="control-label">Building Type</label>
+                                        </div>
+                                        <div class="col-sm-9 col-md-9">
+                                            <div class="dropdown buildings">
+                                                <select formControlName="building" class="btn btn-secondary dropdown-toggle">
+                                                    <option class="dropdown-item" href="#">Airports</option>
+                                                    <option class="dropdown-item" href="#">Commercial</option>
+                                                    <option class="dropdown-item" href="#">Data Center</option>
+                                                    <option class="dropdown-item" href="#">Government</option>
+                                                    <option class="dropdown-item" href="#">Health Care</option>
+                                                    <option class="dropdown-item" href="#">Land</option>
+                                                    <option class="dropdown-item" href="#">Military</option>
+                                                    <option class="dropdown-item" href="#">School/University</option>
+                                                    <option class="dropdown-item" href="#">Utility</option>
+                                                    <option class="dropdown-item" href="#">Venue</option>
+                                                    <option class="dropdown-item" href="#">Wireless</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-3">
+                                            <label class="control-label">Distance:</label>
+                                        </div>
+                                        <div class="col-sm-9 col-md-9">
+                                            <input type="text" id='distance' placeholder="Distance" name="distance" formControlName="distance">
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-3">
+                                        </div>
+                                        <div class="col-sm-9 col-md-9">
+                                            <div class="dropdown">
+                                                <select formControlName="unit" class="btn btn-secondary dropdown-toggle">
+                                                    <option class="dropdown-item" href="#">Feet</option>
+                                                    <option class="dropdown-item" href="#">Mile</option>
+                                                    <option class="dropdown-item" href="#">Meter</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" [disabled]="!Myform1.valid" name="submit" type="submit" (click)="selectbuildaroundfiber()">Submit</button>
+                                </div>
+                                <div class="form-group">
+                                    <div class="alert alert-info">
+                                        <strong id='nearnetresult'>Results...</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="connection">
+                                    <p class="pull-left">Select Download Format</p>
+                                    <p class="pull-right">
+                                        <i class="fa fa-download"></i>
+                                        <input type="button" id="home1" class="btn-as-text" value="Download" disabled id='download' (click)='download()' />
+                                    </p>
+                                </div>
+                                <!-- </span> -->
+                                <!-- <label class="control-label">Connection Status</label> -->
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="Shapefile" name="Checkbox[]" (click)="selectOnlyThis($event)">&nbsp; Shapefile</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="KML" name="Checkbox[]" (click)="selectOnlyThis($event)">&nbsp; KML</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="csv" name="Checkbox[]" (click)="selectOnlyThis($event)">&nbsp; CSV</label>
+                                    </div>
+                                    <div class="col-sm-6" id="csvOptions">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="csvdis" name="Checkbox[]" (click)="selectOnlyThis($event)">&nbsp; CSV w/ Dist</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+                <div class="container tools" id="two" style="display:none;">
+                    <div class="container" id="" style="background-color:#f08a16; font-weight:600;">
+                        <p class="text-left nav-link">
+                            <i class="fa fa-arrow-left"></i>
+                            <input type="button" id="home2" class="go-back btn-as-text" value="Go Back" />
+                            <span class="pull-right nearnet">&nbsp;&nbsp;Other Analysis</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="container tools" id="three" style="display:none;">
+                    <div class="container" id="" style="background-color:#f08a16; font-weight:600;">
+                        <p class="text-left nav-link">
+                            <i class="fa fa-arrow-left"></i>
+                            <input type="button" id="home3" class="go-back btn-as-text" value="Go Back" />
+                            <span class="pull-right nearnet">&nbsp;&nbsp;Other Analysis</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id='map'></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.5/umd/popper.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+    <!-- <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script> -->
+
+    <script src="js/script.js"> </script>
+
+    <script>
+
+        //var originalState = $("#init").clone();
+
+        $(".first").click(function () {
+            toggleDisplay("init", "one");
+            $(".other").removeClass('active').addClass('disabledTab');
+            $("#home1").click(function () {
+                toggleDisplay("one", "init");
+                $(".other").removeClass('disabledTab');
+            });
+        });
+
+        $(".second").click(function () {
+            toggleDisplay("init", "two");
+            $(".other").removeClass('active').addClass('disabledTab');
+            $("#home2").click(function () {
+                toggleDisplay("two", "init");
+                $(".other").removeClass('disabledTab');
+            });
+        });
+
+        $(".third").click(function () {
+            toggleDisplay("init", "three");
+            $(".other").removeClass('active').addClass('disabledTab');
+            $("#home3").click(function () {
+                toggleDisplay("three", "init");
+                $(".other").removeClass('disabledTab');
+            });
+        });
+
+        $(".other li").click(function () {
+            $(this)
+                .addClass('active')
+                .siblings("li")
+                .removeClass("active");
+        });
+
+        // $(".go-back").click(function () {
+        //     $('#init').show();
+        //     $(".other").removeClass('disabledTab');
+        // });
+
+        function toggleDisplay(first, second) {
+            $(`#${first}`).hide();
+            $(`#${second}`).show();
+        }
+
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+    </script>
+</body>
+
+</html>

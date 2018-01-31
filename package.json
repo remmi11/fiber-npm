@@ -1,0 +1,31 @@
+{
+  "name": "fiber",
+  "version": "1.0.0",
+  "description": "\"# fiber\"",
+  "main": "js/script.js",
+  "scripts" : {
+    "start" : "node server.js"
+  },
+  "dependencies": {
+    "ejs": "~1.0.0",
+    "express": "~4.9.8",
+    "@mapbox/togeojson": "^0.16.0",
+    "bluebird": "^3.5.1",
+    "fs": "0.0.1-security",
+    "pg-promise": "^7.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/remmi11/fiber-npm.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/remmi11/fiber-npm/issues"
+  },
+  "homepage": "https://github.com/remmi11/fiber-npm#readme"
+}
